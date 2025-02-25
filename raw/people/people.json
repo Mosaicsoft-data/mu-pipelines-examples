@@ -1,0 +1,33 @@
+[
+    {
+        "execution": [
+            {
+                "type": "filewatcher",
+                "file_location": "/home/iceberg/warehouse/data/people_encrypt.csv"
+            },
+            {
+                "type": "decrypt",
+                "file_location": "/home/iceberg/warehouse/data/people_encrypt.csv",
+                "decrypt_func": "my_own_decrypt()"
+                "decrypt_file": "/home/iceberg/warehouse/data/people.csv" 
+            },
+            {
+                "type": "CSVReadCommand",
+                "file_location": "/home/iceberg/warehouse/data/people.csv",
+                "delimiter": ",",
+                "quotes": "\"" ,
+                "additional_attributes": [
+                    { "key": "header", "value": "True" },
+                ]
+            }
+        ],
+        "destination": [
+            {
+                "type": "postgres",
+                "connection":"my-postgres",
+                "table_name": "crm.raw.people",
+                "mode": "overwrite"
+            }
+        ]
+    }
+]

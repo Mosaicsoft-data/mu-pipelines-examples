@@ -1,0 +1,40 @@
+{   "fail_alerts":{
+    "channel": "crm_data_pipeline_fail",
+    "fail_message":"data pipeline account"
+    },
+    "execution": [
+        {
+        "exec_type":"TransformSQL",
+        "location": "contacts_with_no_accounts.sql"
+    },
+      
+    {
+        "exec_type":"Validations",
+        "fail_threshold": 1000,
+        "fail_alerts":{
+            "channel": "crm_data_pipeline_fail",
+            "fail_message":"Fail: Higher number of records in contacts without accounts pipeline"
+            },
+        "warn_threshold": 200,
+        "warning_alerts":{
+            "channel": "crm_data_pipeline_fail",
+            "fail_message":"Warning: Number of records in contacts without accounts pipeline"
+            },
+        "type":"sql",
+        "query_location":"validate_count"
+}
+
+    ],
+    "destination": [
+        {
+            "type": "WriteCSV",
+            "file_location": "/home/iceberg/warehouse/outbound/no_account_contacts.csv",
+            "delimiter": ","
+        },
+        {
+            "type": "sftp_audit_destination",
+            "folder": "no_account_contacts"
+        }
+
+    ]
+}
