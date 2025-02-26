@@ -7,7 +7,7 @@
                 "delimiter": ",",
                 "quotes": "\"" ,
                 "additional_attributes": [
-                    { "key": "header", "value": "True" },
+                    { "key": "header", "value": "True" }
                 ]
             }
         ],
